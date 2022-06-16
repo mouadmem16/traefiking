@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik:v2.7
+    #command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "85:85"
+      - "443:443"
+    volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}/yaml-conf:/traefik-config
+      - ${PWD}/secure-traefik.yaml:/etc/traefik/traefik.yaml
+      - ${PWD}/certs:/certs
+    networks:
+       - app_net
+
+networks:
+  app_net:
+   external: true

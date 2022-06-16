@@ -1,0 +1,15 @@
+http:
+  routers:
+    docker-route:
+       entryPoints:
+       - web
+       - secure
+       service: nginx-service
+       rule: 'Host(`nginx.service.com`)'
+  services:
+   nginx-service:
+     loadBalancer:
+       servers:
+       - url: http://nginx-service
+       - url: http://tomcat-service:8080
+

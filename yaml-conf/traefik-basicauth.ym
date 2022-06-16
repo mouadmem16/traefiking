@@ -1,0 +1,14 @@
+http:
+  middlewares:
+    traefik-auth:
+      basicAuth:
+        users:
+         - "admin:$2y$05$mlEejrkDM0XsoaqWeBq2Z.KZpncMHAk6xGJxMpCxOip2H8eFU3osS"
+  routers:
+    api:
+      rule: 'PathPrefix(`/api`) || PathPrefix(`/`)'
+      service: 'api@internal'
+      middlewares:
+        - traefik-auth
+      entryPoints: ["traefik"]
+

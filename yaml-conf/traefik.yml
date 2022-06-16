@@ -1,0 +1,18 @@
+http:
+  routers:
+    secure-route:
+       entryPoints:
+       - web
+       - secure
+       service: nginx-service
+       rule: 'Host(`nginx.service.com`)'
+       tls:
+        certFile: /certs/main.crt
+        keyFile: /certs/main.key
+  services:
+   nginx-service:
+     loadBalancer:
+       servers:
+       - url: http://nginx-service
+       - url: http://tomcat-service:8080
+
