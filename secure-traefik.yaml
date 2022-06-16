@@ -1,0 +1,24 @@
+api:
+  dashboard: true
+  insecure: true
+
+debug: INFO
+
+entryPoints:
+  secure:
+   address: ":443"
+  web:
+   http:
+     redirections:
+      entryPoint:
+        to: secure
+   address: ":80"
+  traefik:
+   address: ":8080"
+
+providers:
+  file:
+    directory: /traefik-config
+    watch: true
+
+
